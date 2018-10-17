@@ -17,7 +17,7 @@ public class LoginPage {
 
     public static int getPolygon() {
         //22 - Test; 40 - RC; 50 - Master//
-        return 40;
+        return 22;
     }
 
 

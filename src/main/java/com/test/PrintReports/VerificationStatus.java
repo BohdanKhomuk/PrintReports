@@ -1,7 +1,7 @@
 package com.test.PrintReports;
 
 import com.test.Methods.Frame;
-import com.test.Methods.Pause;
+//import com.test.Methods.Pause;
 import org.openqa.selenium.By;
 import org.openqa.selenium.WebDriver;
 import org.openqa.selenium.support.events.EventFiringWebDriver;

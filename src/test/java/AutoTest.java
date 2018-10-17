@@ -10,27 +10,27 @@ import org.apache.logging.log4j.Logger;
 import org.openqa.selenium.ie.InternetExplorerDriver;
 import org.openqa.selenium.support.events.EventFiringWebDriver;
 import org.testng.Assert;
-import org.testng.annotations.AfterMethod;
-import org.testng.annotations.BeforeMethod;
-import org.testng.annotations.Test;
+import org.testng.annotations.*;
 
 import java.io.File;
 import java.util.concurrent.TimeUnit;
 
-public class  AutoTest   {
+import static java.lang.System.out;
+
+public class AutoTest {
 
     private static EventFiringWebDriver eventDriver;
     private static Print print;
     private static VerificationStatus verStatus;
     private static Delete delete;
     private static FormationAndVerification formAndVer;
-    private static final Logger LOG = LogManager.getLogger(EventHandler.class);
+    private static final Logger LOG = LogManager.getLogger( EventHandler.class );
 
-    @BeforeMethod
+    @BeforeClass
     public static void firstClass() {
-        System.setProperty("java.net.preferIPv4Stack", "true");
-        String browser = new File( AutoTest.class.getResource( "/IEDriverServer.exe" ).getFile()).getPath();
-        System.setProperty("webdriver.ie.driver", browser);
+        System.setProperty( "java.net.preferIPv4Stack", "true" );
+        String browser = new File( AutoTest.class.getResource( "/IEDriverServer.exe" ).getFile() ).getPath();
+        System.setProperty( "webdriver.ie.driver", browser );
         EventFiringWebDriver eventDriver = new EventFiringWebDriver( new InternetExplorerDriver() );
 
          /* String browser = new File(RegistrationCard_FO.class.getResource("/chromedriver.exe").getFile()).getPath();
@@ -38,7 +38,7 @@ public class  AutoTest   {
         eventDriver = new EventFiringWebDriver(new ChromeDriver(  ));*/
         EventHandler handler = new EventHandler();
         eventDriver.manage().window().maximize();
-        eventDriver.manage().timeouts().implicitlyWait(2, TimeUnit.SECONDS);
+        eventDriver.manage().timeouts().implicitlyWait( 2, TimeUnit.SECONDS );
         eventDriver.register( handler );
         String polygonAddress = String.format( "http://10.10.17.%s:8080/barsroot/account/login/", LoginPage.getPolygon() );
         eventDriver.get( polygonAddress );
@@ -52,49 +52,91 @@ public class  AutoTest   {
         formAndVer = new FormationAndVerification( eventDriver );
 
 
-        System.out.println((char) 27 + "[33mБлок авторизації" + (char)27 + "[0m");
+        out.println( (char) 27 + "[33mБлок авторизації" + (char) 27 + "[0m" );
         loginPage.enterInMainPage( "absadm01", "qwerty" );
-        System.out.println((char) 27 + "[33mДрук звітів" + (char)27 + "[0m");
+        out.println( (char) 27 + "[33mДрук звітів" + (char) 27 + "[0m" );
         mainPage.enterFunction();
 
     }
 
-    @Test
-    public void testingPrintReports(){
+    @Test(priority = 1)
+    public void testingPrintReports() {
         print.print();
 
-        Assert.assertEquals( "Створено файл", verStatus.getStatusR1() );
-        Assert.assertEquals( "Створено файл", verStatus.getStatusR2() );
-        Assert.assertEquals( "Створено файл", verStatus.getStatusR4() );
-        Assert.assertEquals( "Створено файл", verStatus.getStatusR3030() );
-        Assert.assertEquals( "Створено файл", verStatus.getStatusR5502() );
+        try {
+            Assert.assertEquals( "Створено файл1", verStatus.getStatusR1() );
+        } catch (AssertionError error) {
+            LOG.error ( error );
+        }
 
+        try {
+            Assert.assertEquals( "Створено файл", verStatus.getStatusR2() );
+        } catch (AssertionError error) {
+            LOG.error ( error );
+        }
+
+        try {
+            Assert.assertEquals( "Створено файл", verStatus.getStatusR4() );
+        } catch (AssertionError error) {
+            LOG.error ( error );
+        }
+
+        try {
+            Assert.assertEquals( "Створено файл", verStatus.getStatusR3030() );
+        } catch (AssertionError error) {
+            LOG.error ( error );
+        }
+
+        try{
+        Assert.assertEquals( "Створено файл", verStatus.getStatusR5502() );
+        } catch (AssertionError error){
+            LOG.error ( error );
+        }
+    }
+
+    @Test(priority = 2)
+    public void testingPrintReports1() {
         formAndVer.pressReports1();
         Assert.assertEquals( "Друк звіту - № 1 (1.Бранч: Зведення док.дня - ТИТУЛ)", formAndVer.getTextTitle() );
         formAndVer.pressBtBack();
+    }
 
+    @Test(priority = 3)
+    public void testingPrintReports2() {
         formAndVer.pressReports2();
         Assert.assertEquals( "Друк звіту - № 2 (2.Бранч: Зведення документiв дня - РЕЄСТР проводок по папкам)", formAndVer.getTextTitle() );
         formAndVer.pressBtBack();
+    }
 
+    @Test(priority = 4)
+    public void testingPrintReports4() {
         formAndVer.pressReports4();
         Assert.assertEquals( "Друк звіту - № 4 (4.МФО: Зведення документiв дня - ТИТУЛИ ( Бранчi+ , Папки))", formAndVer.getTextTitle() );
         formAndVer.pressBtBack();
+    }
 
+    @Test(priority = 5)
+    public void testingPrintReports3030() {
         formAndVer.pressReports3030();
         Assert.assertEquals( "Друк звіту - № 3030 (Виконання автоматичних операцій)", formAndVer.getTextTitle() );
         formAndVer.pressBtBack();
+    }
 
+
+    @Test(priority = 6)
+    public void testingPrintReports5502() {
         formAndVer.pressReports5502();
         Assert.assertEquals( "Друк звіту - № 5502 (Звіт для контролю файлів стат звітності по валютних операціях)", formAndVer.getTextTitle() );
         formAndVer.pressBtBack();
+    }
 
+    @Test(priority = 7)
+    public void deleteReports(){
         delete.deleteReports();
     }
 
-    @AfterMethod
+    @AfterClass
     public static void tearDown() {
         eventDriver.quit();
     }
-
 }

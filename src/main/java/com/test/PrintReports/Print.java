@@ -1,7 +1,7 @@
 package com.test.PrintReports;
 
 import com.test.Methods.Frame;
-import com.test.Methods.Pause;
+//import com.test.Methods.Pause;
 import org.openqa.selenium.*;
 import org.openqa.selenium.support.events.EventFiringWebDriver;
 
@@ -9,12 +9,12 @@ public class Print {
 
     private WebDriver driver;
     private Frame frame;
-    private Pause pause;
+   // private Pause pause;
 
     public Print (WebDriver driver) {
         this.driver = driver;
         this.frame = new Frame( (EventFiringWebDriver) driver );
-        this.pause = new Pause();
+        //this.pause = new Pause();
     }
 
     private By reports1 = By.id( "gvVCbirepReplist_ctl02_ibQuery" );
@@ -69,9 +69,9 @@ public class Print {
     }
 
     private void pressBtSend(){
-        pause.userDelay( 2000 );
+      //  pause.userDelay( 2000 );
         driver.findElement( btSend ).click();
-        pause.userDelay( 1200 );
+      //  pause.userDelay( 1200 );
         Alert alert = driver.switchTo().alert();
         alert.accept();
         /*Actions action = new Actions(driver);
@@ -87,16 +87,16 @@ public class Print {
     public void print(){
         this.pressReports1();
         this.pressBtSend();
-        pause.userDelay( 2000 );
+       // pause.userDelay( 2000 );
         this.pressReports2();
         this.pressBtSend();
-        pause.userDelay( 2000 );
+       // pause.userDelay( 2000 );
         this.pressReports4();
         this.pressBtSend();
-        pause.userDelay( 2000 );
+       // pause.userDelay( 2000 );
         this.pressReports3030();
         this.pressBtSend();
-        pause.userDelay( 2000 );
+      //  pause.userDelay( 2000 );
         this.pressReports5502();
         this.pressBtSend();
         this.pressBtUpdate();
