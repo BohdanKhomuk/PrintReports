@@ -7,6 +7,7 @@ import com.test.PrintReports.Print;
 import com.test.PrintReports.VerificationStatus;
 import org.apache.logging.log4j.LogManager;
 import org.apache.logging.log4j.Logger;
+import org.openqa.selenium.chrome.ChromeDriver;
 import org.openqa.selenium.ie.InternetExplorerDriver;
 import org.openqa.selenium.support.PageFactory;
 import org.openqa.selenium.support.events.EventFiringWebDriver;
@@ -33,9 +34,9 @@ public class AutoTest {
         System.setProperty( "webdriver.ie.driver", browser );
         eventDriver = new EventFiringWebDriver( new InternetExplorerDriver() );
 
-         /* String browser = new File(RegistrationCard_FO.class.getResource("/chromedriver.exe").getFile()).getPath();
+/*      String browser = new File(AutoTest.class.getResource("/chromedriver.exe").getFile()).getPath();
         System.setProperty("webdriver.chrome.driver", browser);
-        eventDriver = new EventFiringWebDriver(new ChromeDriver(  ));*/
+        eventDriver = new EventFiringWebDriver(new ChromeDriver (  ));*/
         EventHandler handler = new EventHandler();
         eventDriver.manage().window().maximize();
         eventDriver.manage().timeouts().implicitlyWait( 10, TimeUnit.SECONDS );
@@ -51,7 +52,6 @@ public class AutoTest {
         loginPage.enterInMainPage( "absadm01", "qwerty" );
         out.println( (char) 27 + "[33mДрук звітів" + (char) 27 + "[0m" );
         mainPage.enterFunction();
-
     }
 
     @Test(priority = 1)

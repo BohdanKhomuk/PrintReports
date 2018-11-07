@@ -14,13 +14,13 @@ public class MainPage {
         this.driver = driver;
     }
 
+
     @FindBy(xpath = "//*[text() = 'АРМ Друк звітів ']")
     @CacheLookup
     private WebElement armPrintReport;
     @FindBy(xpath = "(//*[text() = 'АРМ Друк звітів ']/following::*[@data-codeapp = '$RM_DRU1'])[1]")
     @CacheLookup
     private WebElement funcPrintReport;
-
 
     private void clickArmPrintReport(){
         ((JavascriptExecutor)driver).executeScript("arguments[0].scrollIntoView();", armPrintReport);

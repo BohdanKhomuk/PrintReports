@@ -13,6 +13,11 @@ public class LoginPage {
         this.driver = driver;
     }
 
+    public static int getPolygon() {
+        //22 - Test; 40 - RC; 50 - Master//
+        return 50;
+    }
+
     @FindBy(id = "txtUserName")
     @CacheLookup
     private WebElement userName;
@@ -26,10 +31,6 @@ public class LoginPage {
     @CacheLookup
     private WebElement buttonChangDate;
 
-    public static int getPolygon() {
-        //22 - Test; 40 - RC; 50 - Master//
-        return 22;
-    }
 
     private void typeUserName(String name){
         userName.clear();
